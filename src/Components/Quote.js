@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default ({ author, quote }) => {
+export default ({ author, content }) => {
   const classes = useStyles();
 
   return (
@@ -30,7 +30,7 @@ export default ({ author, quote }) => {
           <FormatQuoteIcon fontSize="large" />
         </div>
         <Typography variant="body1" component="p" className={classes.alignLeft}>
-          {quote}
+          {content}
         </Typography>
         <br />
         <Typography
