@@ -17,6 +17,11 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
   const classes = useStyles();
+  const [quotes, setQuotes] = useState(quoteSamples);
+
+  const addQuote = (author, content) => {
+    setQuotes([...quotes, { author, content }]);
+  };
 
   return (
     <div className={classes.root}>
@@ -28,6 +33,7 @@ export default () => {
             </Grid>
           ))}
       </Grid>
+      <AddQuotes onSend={addQuote} />
     </div>
   );
 };
