@@ -8,7 +8,7 @@ import AddQuotes from "./AddQuote";
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3, 2),
-    minHeight: "85vh"
+    minHeight: "84vh"
   },
   title: {
     marginBottom: 16
