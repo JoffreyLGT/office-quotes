@@ -31,6 +31,8 @@ export default ({ onSend }) => {
 
   const closeDialog = () => {
     setOpen(false);
+    setAuthor("");
+    setContent("");
   };
 
   const addNewQuote = () => {
