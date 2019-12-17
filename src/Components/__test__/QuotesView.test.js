@@ -1,11 +1,15 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import QuotesView from "../QuotesView";
-import { quotes } from "../../Helpers/data";
+import { quoteSamples } from "../../Helpers/data";
 
 describe("Renders correctly", () => {
-  it("Display the view", () => {
+  it("Displays the view", () => {
     const { getByText } = render(<QuotesView />);
-    expect(getByText(quotes[0].author)).toBeInTheDocument();
+    expect(getByText(quoteSamples[0].author)).toBeInTheDocument();
+  });
+  it("Displays the Add quote button", () => {
+    const { getByLabelText } = render(<QuotesView />);
+    expect(getByLabelText("add")).toBeInTheDocument();
   });
 });

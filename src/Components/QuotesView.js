@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Quote from "./Quote";
 import { Grid } from "@material-ui/core";
-import { quotes } from "../Helpers/data";
+import { quoteSamples } from "../Helpers/data";
+import AddQuotes from "./AddQuote";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,17 +17,23 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
   const classes = useStyles();
+  const [quotes, setQuotes] = useState(quoteSamples);
+
+  const addQuote = (author, content) => {
+    setQuotes([...quotes, { author, content }]);
+  };
 
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
         {quotes &&
-          quotes.map(({ author, quote }, i) => (
+          quotes.map(({ author, content }, i) => (
             <Grid key={i} item xs>
-              <Quote author={author} quote={quote} />
+              <Quote author={author} content={content} />
             </Grid>
           ))}
       </Grid>
+      <AddQuotes onSend={addQuote} />
     </div>
   );
 };
