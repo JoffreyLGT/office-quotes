@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 
@@ -17,7 +17,6 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
   const classes = useStyles();
-
   return (
     <AppBar position="static">
       <Toolbar>
