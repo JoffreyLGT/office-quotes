@@ -32,7 +32,9 @@ export default ({ author, content }) => {
         <Typography variant="body1" component="p" className={classes.alignLeft}>
           {content}
         </Typography>
-        <br />
+        <div className={classes.alignRight}>
+          <FormatQuoteIcon fontSize="large" />
+        </div>
         <Typography
           variant="body2"
           component="p"
@@ -41,9 +43,6 @@ export default ({ author, content }) => {
         >
           {author}
         </Typography>
-        <div className={classes.alignRight}>
-          <FormatQuoteIcon fontSize="large" />
-        </div>
       </CardContent>
     </Card>
   );
