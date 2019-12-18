@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Quote from "./Quote";
 import { Grid } from "@material-ui/core";
 import { quoteSamples } from "../Helpers/data";
-import AddQuotes from "./AddQuote";
+import QuoteForm from "./QuoteForm";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,7 +50,7 @@ export default () => {
             </Grid>
           ))}
       </Grid>
-      <AddQuotes onSend={addQuote} />
+      <QuoteForm onSend={addQuote} />
     </div>
   );
 };

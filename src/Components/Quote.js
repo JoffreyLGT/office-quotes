@@ -74,6 +74,7 @@ export default ({
               <FavoriteIcon />
             </IconButton>
             <IconButton
+              data-testid="actions"
               aria-label="actions"
               aria-expanded={open ? "true" : undefined}
               ref={anchorRef}
@@ -89,12 +90,11 @@ export default ({
               transition
               disablePortal
             >
-              {({ TransitionProps, placement }) => (
+              {({ TransitionProps }) => (
                 <Grow
                   {...TransitionProps}
                   style={{
-                    transformOrigin:
-                      placement === "bottom" ? "center top" : "center bottom"
+                    transformOrigin: "center top"
                   }}
                 >
                   <Paper>
