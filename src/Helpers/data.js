@@ -1,4 +1,4 @@
-export const quoteSamples = [
+const samples = [
   {
     id: 0,
     author: "My first quote",
@@ -21,3 +21,5 @@ export const quoteSamples = [
     date: "2019-12-15"
   }
 ];
+
+export const quoteSamples = samples.sort((a, b) => a.date < b.date);
