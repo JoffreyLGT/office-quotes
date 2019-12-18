@@ -23,13 +23,30 @@ export default () => {
     setQuotes([...quotes, { author, content }]);
   };
 
+  const handleFavoriteQuote = id => {
+    console.info(`You want to favorite the quote ${id}.`);
+  };
+
+  const handleEditQuote = id => {
+    console.info(`You want to edit the quote ${id}.`);
+  };
+
+  const handleDeleteQuote = id => {
+    console.info(`You want to delete the quote ${id}.`);
+  };
+
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
         {quotes &&
-          quotes.map(({ author, content }, i) => (
+          quotes.map((quote, i) => (
             <Grid key={i} item xs>
-              <Quote author={author} content={content} />
+              <Quote
+                {...quote}
+                handleEditQuote={handleEditQuote}
+                handleDeleteQuote={handleDeleteQuote}
+                handleFavoriteQuote={handleFavoriteQuote}
+              />
             </Grid>
           ))}
       </Grid>

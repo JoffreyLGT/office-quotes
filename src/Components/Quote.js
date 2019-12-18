@@ -1,15 +1,36 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import { CardContent, Typography } from "@material-ui/core";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  Typography,
+  IconButton,
+  Popper,
+  Grow,
+  Paper,
+  ClickAwayListener,
+  MenuList,
+  MenuItem
+} from "@material-ui/core";
 import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   card: {
     minWidth: 275,
     maxWidth: 500
   },
-  alignLeft: {
+  cardHeader: {
+    paddingBottom: 0
+  },
+  cardContent: {
+    paddingTop: 0
+  },
+  quoteContent: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
     textAlign: "left"
   },
   alignRight: {
@@ -18,18 +39,98 @@ const useStyles = makeStyles({
   icon: {
     margin: 0
   }
-});
+}));
 
-export default ({ author, content }) => {
+export default ({
+  id,
+  author,
+  content,
+  date,
+  handleEditQuote,
+  handleDeleteQuote,
+  handleFavoriteQuote
+}) => {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = () => {
+    setOpen(prevOpen => !prevOpen);
+  };
 
   return (
     <Card className={classes.card}>
-      <CardContent>
-        <div className={classes.alignLeft}>
-          <FormatQuoteIcon fontSize="large" />
-        </div>
-        <Typography variant="body1" component="p" className={classes.alignLeft}>
+      <CardHeader
+        className={classes.cardHeader}
+        avatar={<FormatQuoteIcon fontSize="large" />}
+        action={
+          <div>
+            <IconButton
+              aria-label="add to favorites"
+              onClick={() => {
+                handleFavoriteQuote(id);
+              }}
+            >
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton
+              aria-label="actions"
+              aria-expanded={open ? "true" : undefined}
+              ref={anchorRef}
+              aria-haspopup="menu"
+              onClick={handleToggle}
+            >
+              <MoreVertIcon />
+            </IconButton>
+            <Popper
+              open={open}
+              anchorEl={anchorRef.current}
+              role={undefined}
+              transition
+              disablePortal
+            >
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{
+                    transformOrigin:
+                      placement === "bottom" ? "center top" : "center bottom"
+                  }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleToggle}>
+                      <MenuList>
+                        <MenuItem
+                          onClick={() => {
+                            setOpen(false);
+                            handleEditQuote(id);
+                          }}
+                        >
+                          Edit
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() => {
+                            setOpen(false);
+                            handleDeleteQuote(id);
+                          }}
+                        >
+                          Delete
+                        </MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
+          </div>
+        }
+      />
+      <CardContent className={classes.cardContent}>
+        <Typography
+          variant="body1"
+          component="p"
+          className={classes.quoteContent}
+        >
           {content}
         </Typography>
         <div className={classes.alignRight}>
