@@ -1,10 +1,10 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import AddQuote from "../AddQuote";
+import QuoteForm from "../QuoteForm";
 
 describe("Renders correctly", () => {
   it("Display the view", () => {
-    const { getByLabelText } = render(<AddQuote />);
+    const { getByLabelText } = render(<QuoteForm />);
     expect(getByLabelText(/add/)).toBeInTheDocument();
   });
 
@@ -14,7 +14,7 @@ describe("Renders correctly", () => {
       content: "He fired 75 bullets!"
     };
     const addQuote = jest.fn();
-    const { getByLabelText } = render(<AddQuote onSend={addQuote} />);
+    const { getByLabelText } = render(<QuoteForm onSend={addQuote} />);
     fireEvent.click(getByLabelText(/add/));
     fireEvent.change(getByLabelText("Author"), {
       target: { value: quote.author }
