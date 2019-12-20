@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import QuoteFormDialog from "../QuoteFormDialog";
-import { quoteSamples } from "../../Helpers/data";
+import { quoteSamples } from "../../Helpers/dataSample";
 
 describe("Renders correctly", () => {
   it("Display the view", () => {

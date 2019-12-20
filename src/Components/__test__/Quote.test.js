@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import Quote from "../Quote";
-import { quoteSamples } from "../../Helpers/data";
+import { quoteSamples } from "../../Helpers/dataSample";
 
 const quote = quoteSamples[0];
 

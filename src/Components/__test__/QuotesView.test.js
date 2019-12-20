@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import QuotesView from "../QuotesView";
-import { quoteSamples } from "../../Helpers/data";
+import { quoteSamples } from "../../Helpers/dataSample";
 
 describe("Renders correctly", () => {
   it("Displays the view", () => {

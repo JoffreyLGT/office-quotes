@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Quote from "./Quote";
 import { Grid, Fab } from "@material-ui/core";
-import { quoteSamples } from "../Helpers/data";
+import { quoteSamples } from "../Helpers/dataSample";
 import QuoteFormDialog from "./QuoteFormDialog";
 import AddIcon from "@material-ui/icons/Add";
 
