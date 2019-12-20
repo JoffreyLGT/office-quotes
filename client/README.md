@@ -9,9 +9,20 @@ This is the purpose of the application: collect all the quotes your hear and sha
 
 ## Libraries
 
+The project is using a MERN stack.
+
+### Client
+
 - [Create React App](https://github.com/facebook/create-react-app) to setup the app
 - [Material-UI](https://material-ui.com/) components for the UI
 - [Jest](https://jestjs.io/) and [React-Testing-Library](https://testing-library.com/docs/react-testing-library/intro) to test the components
+- Axios as a HTTP client.
+
+### API
+
+- express
+- mongoose
+- nodemon
 
 ## Commit message guidelines
 
