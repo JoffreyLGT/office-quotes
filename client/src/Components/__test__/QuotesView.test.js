@@ -1,15 +1,32 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, waitForElement } from "@testing-library/react";
 import QuotesView from "../QuotesView";
 import { quoteSamples } from "../../Helpers/dataSample";
 
+import {
+  getQuotes,
+  getQuote,
+  updateQuote,
+  deleteQuote,
+  addQuote
+} from "../../Helpers/data";
+
+jest.mock("../../Helpers/data");
+
 describe("Renders correctly", () => {
-  it("Displays the view", () => {
-    const { getByText } = render(<QuotesView />);
-    expect(getByText(quoteSamples[0].author)).toBeInTheDocument();
+  beforeAll(() => {
+    getQuotes.mockResolvedValue(quoteSamples);
   });
-  it("Displays the Add quote button", () => {
+  it("Displays the view", async () => {
+    const { getByText } = render(<QuotesView />);
+    const result = await waitForElement(() =>
+      getByText(quoteSamples[0].author)
+    );
+    expect(result).toBeInTheDocument();
+  });
+  it("Displays the Add quote button", async () => {
     const { getByLabelText } = render(<QuotesView />);
-    expect(getByLabelText("add")).toBeInTheDocument();
+    const result = await waitForElement(() => getByLabelText("add"));
+    expect(result).toBeInTheDocument();
   });
 });

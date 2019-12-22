@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Quote from "./Quote";
 import { Grid, Fab } from "@material-ui/core";
-import { quoteSamples } from "../Helpers/dataSample";
 import QuoteFormDialog from "./QuoteFormDialog";
 import AddIcon from "@material-ui/icons/Add";
+import {
+  getQuotes,
+  getQuote,
+  updateQuote,
+  deleteQuote,
+  addQuote
+} from "../Helpers/data";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,39 +30,41 @@ const useStyles = makeStyles(theme => ({
 export default () => {
   const classes = useStyles();
   const [isDialogOpened, setIsDialogOpened] = useState(false);
-  const [quotes, setQuotes] = useState(quoteSamples);
+  const [quotes, setQuotes] = useState([]);
   const [quoteFormContent, setQuoteFormContent] = useState(null);
   const [formEditMode, setFormEditMode] = useState(false);
+  const [isFirstRender, setFirstRender] = useState(true);
 
-  const addQuote = () => {
-    // TODO Move the content of this function in a specific file to not have to change it when we install the API
-    const lastId = quotes.reduce(
-      (biggestId, { id }) => (biggestId < id ? id : biggestId),
-      0
-    );
-    const newQuotes = [...quotes];
-    newQuotes.unshift({
-      id: lastId + 1,
+  useEffect(() => {
+    const fetchData = async () => {
+      const quotes = await getQuotes();
+      setQuotes(quotes);
+    };
+    if (isFirstRender) {
+      fetchData();
+      setFirstRender(false);
+    }
+  }, [isFirstRender]);
+
+  const addNewQuote = async () => {
+    const newQuote = {
       ...quoteFormContent,
       date: new Date(Date.now()).toISOString()
-    });
-    setQuotes(newQuotes);
+    };
+    await addQuote(newQuote);
+    setQuotes(await getQuotes());
     handleCloseDialog();
   };
 
-  const editQuote = () => {
-    // TODO Move the content of this function in a specific file to not have to change it when we install the API
-    setQuotes(
-      quotes.map(quote =>
-        quote.id === quoteFormContent.id ? quoteFormContent : quote
-      )
-    );
+  const editQuote = async () => {
+    await updateQuote(quoteFormContent._id, quoteFormContent);
+    setQuotes(await getQuotes());
     handleCloseDialog();
   };
 
-  const deleteQuote = id => {
-    // TODO Move the content of this function in a specific file to not have to change it when we install the API
-    setQuotes(quotes.filter(quote => quote.id !== id));
+  const removeQuote = async id => {
+    await deleteQuote(id);
+    setQuotes(await getQuotes());
   };
 
   const setFavoriteQuote = id => {
@@ -109,9 +117,9 @@ export default () => {
    * Fill the form with the quote.
    * @param {number} id of the quote to edit
    */
-  const handleEditQuote = id => {
+  const handleEditQuote = async id => {
     setFormEditMode(true);
-    setQuoteFormContent(quotes.find(quote => quote.id === id));
+    setQuoteFormContent(await getQuote(id));
     setIsDialogOpened(true);
   };
 
@@ -124,7 +132,7 @@ export default () => {
               <Quote
                 {...quote}
                 handleEditQuote={handleEditQuote}
-                handleDeleteQuote={deleteQuote}
+                handleDeleteQuote={removeQuote}
                 handleFavoriteQuote={handleFavoriteQuote}
               />
             </Grid>
@@ -139,7 +147,7 @@ export default () => {
         <AddIcon />
       </Fab>
       <QuoteFormDialog
-        onValidate={formEditMode ? editQuote : addQuote}
+        onValidate={formEditMode ? editQuote : addNewQuote}
         isOpened={isDialogOpened}
         handleCloseDialog={handleCloseDialog}
         handleQuoteFormChange={handleQuoteFormChange}

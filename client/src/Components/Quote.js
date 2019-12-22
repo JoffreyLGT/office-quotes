@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
-  id,
+  _id,
   author,
   content,
   date,
@@ -68,7 +68,7 @@ export default ({
             <IconButton
               aria-label="add to favorites"
               onClick={() => {
-                handleFavoriteQuote(id);
+                handleFavoriteQuote(_id);
               }}
             >
               <FavoriteIcon />
@@ -103,7 +103,7 @@ export default ({
                         <MenuItem
                           onClick={() => {
                             setOpen(false);
-                            handleEditQuote(id);
+                            handleEditQuote(_id);
                           }}
                         >
                           Edit
@@ -111,7 +111,7 @@ export default ({
                         <MenuItem
                           onClick={() => {
                             setOpen(false);
-                            handleDeleteQuote(id);
+                            handleDeleteQuote(_id);
                           }}
                         >
                           Delete
