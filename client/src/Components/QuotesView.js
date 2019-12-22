@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
 export default () => {
   const classes = useStyles();
   const [isDialogOpened, setIsDialogOpened] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [quotes, setQuotes] = useState([]);
   const [quoteFormContent, setQuoteFormContent] = useState(null);
   const [formEditMode, setFormEditMode] = useState(false);
@@ -38,7 +39,11 @@ export default () => {
   useEffect(() => {
     const fetchData = async () => {
       const quotes = await getQuotes();
-      setQuotes(quotes);
+      if (typeof quotes.error === "undefined") {
+        setQuotes(quotes);
+      } else {
+        setHasError(true);
+      }
     };
     if (isFirstRender) {
       fetchData();
@@ -46,7 +51,7 @@ export default () => {
     }
   }, [isFirstRender]);
 
-  const addNewQuote = async () => {
+  const addQuoteInDb = async () => {
     const newQuote = {
       ...quoteFormContent,
       date: new Date(Date.now()).toISOString()
@@ -56,21 +61,33 @@ export default () => {
     handleCloseDialog();
   };
 
-  const editQuote = async () => {
-    await updateQuote(quoteFormContent._id, quoteFormContent);
+  const editQuoteInDb = async () => {
+    const result = await updateQuote(quoteFormContent._id, quoteFormContent);
+    if (typeof result.error !== "undefined") {
+      alert(
+        "Impossible to save the quote, please check your connection and try again."
+      );
+      return;
+    }
     setQuotes(await getQuotes());
     handleCloseDialog();
   };
 
-  const removeQuote = async id => {
-    await deleteQuote(id);
+  const removeQuoteInDb = async id => {
+    const result = await deleteQuote(id);
+    if (typeof result.error !== "undefined") {
+      alert(
+        "Impossible to save the quote, please check your connection and try again."
+      );
+      return;
+    }
     setQuotes(await getQuotes());
   };
 
-  const setFavoriteQuote = id => {
-    // TODO Move the content of this function in a specific file to not have to change it when we install the API
+  const setQuoteAsFavoriteInDb = id => {
     // TODO
   };
+
   /**
    * Called when there is a change in the QuoteForm inputs.
    * Updates quoteFormContent with the new value.
@@ -101,7 +118,7 @@ export default () => {
 
   const handleFavoriteQuote = id => {
     console.info(`You want to favorite the quote ${id}.`);
-    setFavoriteQuote(id);
+    setQuoteAsFavoriteInDb(id);
   };
 
   /**
@@ -123,6 +140,14 @@ export default () => {
     setIsDialogOpened(true);
   };
 
+  if (hasError)
+    return (
+      <h1>
+        Error: impossible to reach the server, please check your connection and
+        try again.
+      </h1>
+    );
+
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
@@ -132,7 +157,7 @@ export default () => {
               <Quote
                 {...quote}
                 handleEditQuote={handleEditQuote}
-                handleDeleteQuote={removeQuote}
+                handleDeleteQuote={removeQuoteInDb}
                 handleFavoriteQuote={handleFavoriteQuote}
               />
             </Grid>
@@ -147,7 +172,7 @@ export default () => {
         <AddIcon />
       </Fab>
       <QuoteFormDialog
-        onValidate={formEditMode ? editQuote : addNewQuote}
+        onValidate={formEditMode ? editQuoteInDb : addQuoteInDb}
         isOpened={isDialogOpened}
         handleCloseDialog={handleCloseDialog}
         handleQuoteFormChange={handleQuoteFormChange}

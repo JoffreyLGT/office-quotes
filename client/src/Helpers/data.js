@@ -10,8 +10,8 @@ const getQuotes = async () => {
     const quotes = await axios.get(`${apiUrl}/quotes`);
     return quotes.data;
   } catch (error) {
-    // TODO Handle the errors
     console.error(error);
+    return { error: error.message };
   }
 };
 
@@ -24,8 +24,8 @@ const getQuote = async id => {
     const quotes = await axios.get(`${apiUrl}/quote/${id}`);
     return quotes.data;
   } catch (error) {
-    // TODO Handle the errors
     console.error(error);
+    return { error: error.message };
   }
 };
 
@@ -38,8 +38,8 @@ const addQuote = async quote => {
     const quotes = await axios.post(`${apiUrl}/quote`, quote);
     return quotes.data;
   } catch (error) {
-    // TODO Handle the errors
     console.error(error);
+    return { error: error.message };
   }
 };
 
@@ -53,8 +53,8 @@ const updateQuote = async (id, quote) => {
     const quotes = await axios.put(`${apiUrl}/quote/${id}`, quote);
     return quotes.data;
   } catch (error) {
-    // TODO Handle the errors
     console.error(error);
+    return { error: error.message };
   }
 };
 
@@ -67,8 +67,8 @@ const deleteQuote = async id => {
     const quotes = await axios.delete(`${apiUrl}/quote/${id}`);
     return quotes.deletedCount === 1;
   } catch (error) {
-    // TODO Handle the errors
     console.error(error);
+    return { error: error.message };
   }
 };
 
