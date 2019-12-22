@@ -1,8 +1,75 @@
-import { quoteSamples } from "./dataSample";
+import axios from "axios";
 
-const getQuotes = null;
-const getQuote = null;
-const updateQuote = null;
-const deleteQuote = null;
+const apiUrl = process.env.REACT_APP_API_URL;
 
-export { getQuotes, getQuote, updateQuote, deleteQuote };
+/**
+ * Get all the quotes by sending a get request to the API.
+ */
+const getQuotes = async () => {
+  try {
+    const quotes = await axios.get(`${apiUrl}/quotes`);
+    return quotes.data;
+  } catch (error) {
+    // TODO Handle the errors
+    console.error(error);
+  }
+};
+
+/**
+ * Get a specified quote by sending a get request to the API.
+ * @param {string} id of the quote to get
+ */
+const getQuote = async id => {
+  try {
+    const quotes = await axios.get(`${apiUrl}/quote/${id}`);
+    return quotes.data;
+  } catch (error) {
+    // TODO Handle the errors
+    console.error(error);
+  }
+};
+
+/**
+ * Add a new quote by sending a post request to the API.
+ * @param {*} quote to add
+ */
+const addQuote = async quote => {
+  try {
+    const quotes = await axios.post(`${apiUrl}/quote`, quote);
+    return quotes.data;
+  } catch (error) {
+    // TODO Handle the errors
+    console.error(error);
+  }
+};
+
+/**
+ * Update a specified quote by sending a put request the API.
+ * @param {string} id of the quote to update
+ * @param {*} quote to set
+ */
+const updateQuote = async (id, quote) => {
+  try {
+    const quotes = await axios.put(`${apiUrl}/quote/${id}`, quote);
+    return quotes.data;
+  } catch (error) {
+    // TODO Handle the errors
+    console.error(error);
+  }
+};
+
+/**
+ * Delete a specified quote be sending a delete request to the API.
+ * @param {string} id of the quote to delete
+ */
+const deleteQuote = async id => {
+  try {
+    const quotes = await axios.delete(`${apiUrl}/quote/${id}`);
+    return quotes.deletedCount === 1;
+  } catch (error) {
+    // TODO Handle the errors
+    console.error(error);
+  }
+};
+
+export { getQuotes, getQuote, updateQuote, deleteQuote, addQuote };
