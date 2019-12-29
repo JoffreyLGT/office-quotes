@@ -13,7 +13,13 @@ import QuoteModel from "./models/Quote";
 mongoose.connect(
   "mongodb://localhost:27017/office-quotes",
   { useNewUrlParser: true, useUnifiedTopology: true },
-  () => console.log("MongoDB is connected")
+  error => {
+    if (error) {
+      console.log(`Error while connecting to MongoDB:\n${error}`);
+    } else {
+      console.log("MongoDB is connected");
+    }
+  }
 );
 
 // Enable CORS
