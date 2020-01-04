@@ -21,7 +21,7 @@ const getQuotes = async () => {
  */
 const getQuote = async id => {
   try {
-    const quotes = await axios.get(`${apiUrl}/quote/${id}`);
+    const quotes = await axios.get(`${apiUrl}/quotes/${id}`);
     return quotes.data;
   } catch (error) {
     console.error(error);
@@ -35,7 +35,7 @@ const getQuote = async id => {
  */
 const addQuote = async quote => {
   try {
-    const quotes = await axios.post(`${apiUrl}/quote`, quote);
+    const quotes = await axios.post(`${apiUrl}/quotes`, quote);
     return quotes.data;
   } catch (error) {
     console.error(error);
@@ -50,7 +50,7 @@ const addQuote = async quote => {
  */
 const updateQuote = async (id, quote) => {
   try {
-    const quotes = await axios.put(`${apiUrl}/quote/${id}`, quote);
+    const quotes = await axios.put(`${apiUrl}/quotes/${id}`, quote);
     return quotes.data;
   } catch (error) {
     console.error(error);
@@ -64,7 +64,7 @@ const updateQuote = async (id, quote) => {
  */
 const deleteQuote = async id => {
   try {
-    const quotes = await axios.delete(`${apiUrl}/quote/${id}`);
+    const quotes = await axios.delete(`${apiUrl}/quotes/${id}`);
     return quotes.deletedCount === 1;
   } catch (error) {
     console.error(error);
