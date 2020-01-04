@@ -10,10 +10,6 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Routes
-app.use(quotesRouter);
-app.use(userRouter);
-
 // Enable CORS
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -24,6 +20,10 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+// Routes
+app.use(quotesRouter);
+app.use(userRouter);
 
 // Starts the server
 app.listen(port, () => console.log(`Server is running on port ${port}`));
