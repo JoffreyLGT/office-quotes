@@ -3,7 +3,7 @@ import userRouter from "./routers/users";
 import quotesRouter from "./routers/quotes";
 import bodyParser from "body-parser";
 
-const port = process.env.PORT;
+const port = process.env["app_port"];
 require("./database/db");
 
 const app = express();
@@ -26,4 +26,6 @@ app.use(quotesRouter);
 app.use(userRouter);
 
 // Starts the server
-app.listen(port, () => console.log(`Server is running on port ${port}`));
+app.listen(port, () =>
+  console.log(`Server is running on port ${process.env["app_port"]}`)
+);

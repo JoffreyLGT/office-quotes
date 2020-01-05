@@ -19,7 +19,7 @@
     "nodemon": "^2.0.2"
   },
   "scripts": {
-    "start": "env-cmd -f ./.env.local nodemon index.js",
-    "release": "env-cmd -f ./.env nodemon index.js"
+    "start": "env-cmd -f ./.env.local nodemon app.js",
+    "release": "env-cmd -f ./.env nodemon app.js"
   }
 }
