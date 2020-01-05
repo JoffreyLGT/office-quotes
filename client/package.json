@@ -19,7 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "coverage": "npm test -- --watchAll=false --coverage"
+    "coverage": "npm test -- --watchAll=false --coverage",
+    "publishSurge": "surge ./build --domain my-office-quotes.surge.sh"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,6 +38,7 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^24.0.23"
+    "@types/jest": "^24.0.23",
+    "surge": "^0.21.3"
   }
 }
