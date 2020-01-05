@@ -163,7 +163,7 @@ export default () => {
             </Grid>
           ))}
       </Grid>
-      <Fab
+      {/* <Fab
         color="primary"
         aria-label="add"
         className={classes.fab}
@@ -177,7 +177,7 @@ export default () => {
         handleCloseDialog={handleCloseDialog}
         handleQuoteFormChange={handleQuoteFormChange}
         {...quoteFormContent}
-      />
+      /> */}
     </div>
   );
 };

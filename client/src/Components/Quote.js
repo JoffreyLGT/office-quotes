@@ -63,67 +63,69 @@ export default ({
       <CardHeader
         className={classes.cardHeader}
         avatar={<FormatQuoteIcon fontSize="large" />}
-        action={
-          <div>
-            <IconButton
-              aria-label="add to favorites"
-              onClick={() => {
-                handleFavoriteQuote(_id);
-              }}
-            >
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton
-              data-testid="actions"
-              aria-label="actions"
-              aria-expanded={open ? "true" : undefined}
-              ref={anchorRef}
-              aria-haspopup="menu"
-              onClick={handleToggle}
-            >
-              <MoreVertIcon />
-            </IconButton>
-            <Popper
-              open={open}
-              anchorEl={anchorRef.current}
-              role={undefined}
-              transition
-              disablePortal
-            >
-              {({ TransitionProps }) => (
-                <Grow
-                  {...TransitionProps}
-                  style={{
-                    transformOrigin: "center top"
-                  }}
-                >
-                  <Paper>
-                    <ClickAwayListener onClickAway={handleToggle}>
-                      <MenuList>
-                        <MenuItem
-                          onClick={() => {
-                            setOpen(false);
-                            handleEditQuote(_id);
-                          }}
-                        >
-                          Edit
-                        </MenuItem>
-                        <MenuItem
-                          onClick={() => {
-                            setOpen(false);
-                            handleDeleteQuote(_id);
-                          }}
-                        >
-                          Delete
-                        </MenuItem>
-                      </MenuList>
-                    </ClickAwayListener>
-                  </Paper>
-                </Grow>
-              )}
-            </Popper>
-          </div>
-        }
+        // action={
+
+        // <div>
+        //   <IconButton
+        //     aria-label="add to favorites"
+        //     onClick={() => {
+        //       handleFavoriteQuote(_id);
+        //     }}
+        //   >
+        //     <FavoriteIcon />
+        //   </IconButton>
+        //   <IconButton
+        //     data-testid="actions"
+        //     aria-label="actions"
+        //     aria-expanded={open ? "true" : undefined}
+        //     ref={anchorRef}
+        //     aria-haspopup="menu"
+        //     onClick={handleToggle}
+        //   >
+        //     <MoreVertIcon />
+        //   </IconButton>
+        //   <Popper
+        //     open={open}
+        //     anchorEl={anchorRef.current}
+        //     role={undefined}
+        //     transition
+        //     disablePortal
+        //   >
+        //     {({ TransitionProps }) => (
+        //       <Grow
+        //         {...TransitionProps}
+        //         style={{
+        //           transformOrigin: "center top"
+        //         }}
+        //       >
+        //         <Paper>
+        //           <ClickAwayListener onClickAway={handleToggle}>
+        //             <MenuList>
+        //               <MenuItem
+        //                 onClick={() => {
+        //                   setOpen(false);
+        //                   handleEditQuote(_id);
+        //                 }}
+        //               >
+        //                 Edit
+        //               </MenuItem>
+        //               <MenuItem
+        //                 onClick={() => {
+        //                   setOpen(false);
+        //                   handleDeleteQuote(_id);
+        //                 }}
+        //               >
+        //                 Delete
+        //               </MenuItem>
+        //             </MenuList>
+        //           </ClickAwayListener>
+        //         </Paper>
+        //       </Grow>
+        //     )}
+        //   </Popper>
+        // </div>
+
+        // }
       />
       <CardContent className={classes.cardContent}>
         <Typography
