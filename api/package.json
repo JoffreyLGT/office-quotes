@@ -20,6 +20,7 @@
   },
   "scripts": {
     "start": "env-cmd -f ./.env.local nodemon app.js",
-    "release": "env-cmd -f ./.env nodemon app.js"
+    "release": "env-cmd -f ./.env nodemon app.js",
+    "build": "cp -R src ./release && cp app.js ./release && cp package.json ./release"
   }
 }

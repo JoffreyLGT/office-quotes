@@ -1,0 +1,3 @@
+[submodule "release"]
+	path = release
+	url = cloudnode@git.cloudno.de:/git/joffreylagut/7283-c4bbf479920f5fba45cfad9c03ddcc39.git
