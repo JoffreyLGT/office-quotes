@@ -35,7 +35,7 @@ const App = () => {
             <SignInView setUser={setUser} />
           </Route>
           <Route>
-            <QuotesView />
+            <QuotesView user={user} />
           </Route>
         </Switch>
         <Footer />

@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default () => {
+export default ({ user }) => {
   const classes = useStyles();
   const [isDialogOpened, setIsDialogOpened] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -62,7 +62,10 @@ export default () => {
   };
 
   const editQuoteInDb = async () => {
-    const result = await updateQuote(quoteFormContent._id, quoteFormContent);
+    const result = await updateQuote(quoteFormContent._id, {
+      ...quoteFormContent,
+      userId: user._id
+    });
     if (typeof result.error !== "undefined") {
       alert(
         "Impossible to save the quote, please check your connection and try again."
@@ -163,21 +166,25 @@ export default () => {
             </Grid>
           ))}
       </Grid>
-      <Fab
-        color="primary"
-        aria-label="add"
-        className={classes.fab}
-        onClick={handleAddQuote}
-      >
-        <AddIcon />
-      </Fab>
-      <QuoteFormDialog
-        onValidate={formEditMode ? editQuoteInDb : addQuoteInDb}
-        isOpened={isDialogOpened}
-        handleCloseDialog={handleCloseDialog}
-        handleQuoteFormChange={handleQuoteFormChange}
-        {...quoteFormContent}
-      />
+      {user && (
+        <>
+          <Fab
+            color="primary"
+            aria-label="add"
+            className={classes.fab}
+            onClick={handleAddQuote}
+          >
+            <AddIcon />
+          </Fab>
+          <QuoteFormDialog
+            onValidate={formEditMode ? editQuoteInDb : addQuoteInDb}
+            isOpened={isDialogOpened}
+            handleCloseDialog={handleCloseDialog}
+            handleQuoteFormChange={handleQuoteFormChange}
+            {...quoteFormContent}
+          />
+        </>
+      )}
     </div>
   );
 };
