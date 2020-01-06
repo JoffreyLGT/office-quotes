@@ -72,4 +72,17 @@ const deleteQuote = async id => {
   }
 };
 
-export { getQuotes, getQuote, updateQuote, deleteQuote, addQuote };
+const login = async (name, password) => {
+  try {
+    const result = await axios.post(`${apiUrl}/users/login`, {
+      name,
+      password
+    });
+    return result.data;
+  } catch (error) {
+    console.error(error);
+    return { error: error.message };
+  }
+};
+
+export { getQuotes, getQuote, updateQuote, deleteQuote, addQuote, login };
