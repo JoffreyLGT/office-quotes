@@ -25,6 +25,10 @@ const userSchema = mongoose.Schema({
     required: true,
     minLength: 7
   },
+  isAdmin: {
+    type: Boolean,
+    default: false
+  },
   tokens: [
     {
       token: {
@@ -53,11 +57,14 @@ userSchema.methods.generateAuthToken = async function() {
   return token;
 };
 
-userSchema.statics.findByCredentials = async (email, password) => {
+userSchema.statics.findByCredentials = async (email, password, name) => {
   // Search for a user by email and password.
-  const user = await User.findOne({ email });
+  let user = await User.findOne({ email });
   if (!user) {
-    throw new Error({ error: "Invalid login credentials" });
+    user = await User.findOne({ name });
+    if (!user) {
+      throw new Error({ error: "Invalid login credentials" });
+    }
   }
   const isPasswordMatch = await bcrypt.compare(password, user.password);
   if (!isPasswordMatch) {

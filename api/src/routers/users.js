@@ -19,15 +19,19 @@ router.post("/api/users", auth, async (req, res) => {
 router.post("/api/users/login", async (req, res) => {
   //Login a registered user
   try {
-    const { email, password } = req.body;
-    const user = await User.findByCredentials(email, password);
+    const { email, password, name } = req.body;
+    const user = await User.findByCredentials(email, password, name);
+
     if (!user) {
       return res
         .status(401)
         .send({ error: "Login failed! Check authentication credentials" });
     }
     const token = await user.generateAuthToken();
-    res.send({ user, token });
+    const userResponse = Object.assign(user._doc);
+    delete userResponse.tokens;
+    delete userResponse.password;
+    res.send({ ...userResponse, token });
   } catch (error) {
     res.status(400).send(error);
   }
