@@ -1,6 +1,8 @@
 import axios from "axios";
 
 const apiUrl = process.env.REACT_APP_API_URL;
+axios.defaults.headers.Authorization =
+  "Bearer " + localStorage.getItem("token");
 
 /**
  * Get all the quotes by sending a get request to the API.
