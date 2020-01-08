@@ -11,7 +11,6 @@ router.post("/api/quotes", auth, async (request, response) => {
     var result = await quote.save();
     response.send(result);
   } catch (error) {
-    console.log(error);
     response.status(500).send(error);
   }
 });
@@ -19,7 +18,11 @@ router.post("/api/quotes", auth, async (request, response) => {
 router.get("/api/quotes", async (request, response) => {
   try {
     var quotes = await QuoteModel.find().exec();
-    response.send(quotes);
+    response.send(
+      quotes.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      })
+    );
   } catch (error) {
     response.status(500).send(error);
   }
