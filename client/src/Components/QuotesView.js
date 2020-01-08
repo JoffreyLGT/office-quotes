@@ -162,6 +162,7 @@ export default ({ user }) => {
                 handleEditQuote={handleEditQuote}
                 handleDeleteQuote={removeQuoteInDb}
                 handleFavoriteQuote={handleFavoriteQuote}
+                user={user}
               />
             </Grid>
           ))}

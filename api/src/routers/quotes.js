@@ -33,6 +33,7 @@ router.get("/api/quotes/:id", async (request, response) => {
 });
 
 router.put("/api/quotes/:id", auth, async (request, response) => {
+  if (!request.user.isAdmin) return response.status(403).send();
   try {
     var quote = await QuoteModel.findById(request.params.id).exec();
     quote.set(request.body);
@@ -44,6 +45,7 @@ router.put("/api/quotes/:id", auth, async (request, response) => {
 });
 
 router.delete("/api/quotes/:id", auth, async (request, response) => {
+  if (!request.user.isAdmin) return response.status(403).send();
   try {
     var result = await QuoteModel.deleteOne({ _id: request.params.id }).exec();
     response.send(result);
