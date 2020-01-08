@@ -36,3 +36,8 @@ Follow [Angular's guidelines](https://github.com/angular/angular/blob/master/CON
 
 There are currently 2 scopts: api and client.
 Example: `fix(api): no more error when the user tries to login`.
+
+### Branches
+
+- **master** is the most up to date branch.
+- **release** is the branch currently deployed in production.
