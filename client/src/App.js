@@ -12,7 +12,7 @@ const App = () => {
       _id: localStorage.getItem("_id"),
       name: localStorage.getItem("name"),
       token: localStorage.getItem("token"),
-      isAdmin: localStorage.getItem("isAdmin") == "true"
+      isAdmin: localStorage.getItem("isAdmin") === "true"
     };
     return user._id === null ? undefined : user;
   };

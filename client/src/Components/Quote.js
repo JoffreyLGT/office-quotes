@@ -46,6 +46,7 @@ export default ({
   author,
   content,
   date,
+  userId,
   handleEditQuote,
   handleDeleteQuote,
   handleFavoriteQuote,
@@ -66,16 +67,16 @@ export default ({
         avatar={<FormatQuoteIcon fontSize="large" />}
         action={
           user &&
-          user.isAdmin === true && (
+          (user.isAdmin === true || user._id === userId) && (
             <div>
-              <IconButton
+              {/* <IconButton
                 aria-label="add to favorites"
                 onClick={() => {
                   handleFavoriteQuote(_id);
                 }}
               >
                 <FavoriteIcon />
-              </IconButton>
+              </IconButton> */}
               <IconButton
                 data-testid="actions"
                 aria-label="actions"
