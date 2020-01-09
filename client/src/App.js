@@ -11,7 +11,8 @@ const App = () => {
     const user = {
       _id: localStorage.getItem("_id"),
       name: localStorage.getItem("name"),
-      token: localStorage.getItem("token")
+      token: localStorage.getItem("token"),
+      isAdmin: localStorage.getItem("isAdmin") === "true"
     };
     return user._id === null ? undefined : user;
   };
@@ -23,6 +24,7 @@ const App = () => {
       localStorage.setItem("_id", user._id);
       localStorage.setItem("name", user.name);
       localStorage.setItem("token", user.token);
+      localStorage.setItem("isAdmin", user.isAdmin);
     }
   }, [user]);
 
