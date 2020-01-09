@@ -136,7 +136,17 @@ export default ({
           component="p"
           className={classes.quoteContent}
         >
-          {content}
+          {typeof content !== "undefined" &&
+            content.split("\n").map((line, i) =>
+              i > 0 ? (
+                <>
+                  <br />
+                  <span key={i}>{line}</span>
+                </>
+              ) : (
+                <span key={i}>{line}</span>
+              )
+            )}
         </Typography>
         <div className={classes.alignRight}>
           <FormatQuoteIcon fontSize="large" />
