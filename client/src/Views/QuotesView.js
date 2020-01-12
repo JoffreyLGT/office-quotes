@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Quote from "./Quote";
+import Quote from "../Components/Quote";
 import { Grid, Fab } from "@material-ui/core";
-import QuoteFormDialog from "./QuoteFormDialog";
+import QuoteFormDialog from "../Components/QuoteFormDialog";
 import AddIcon from "@material-ui/icons/Add";
 import {
   getQuotes,
