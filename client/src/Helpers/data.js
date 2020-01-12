@@ -1,8 +1,10 @@
 import axios from "axios";
 
 const apiUrl = process.env.REACT_APP_API_URL;
-axios.defaults.headers.Authorization =
-  "Bearer " + localStorage.getItem("token");
+
+const loadToken = () =>
+  (axios.defaults.headers.Authorization =
+    "Bearer " + localStorage.getItem("token"));
 
 /**
  * Get all the quotes by sending a get request to the API.
@@ -36,6 +38,7 @@ const getQuote = async id => {
  * @param {*} quote to add
  */
 const addQuote = async quote => {
+  loadToken();
   try {
     const quotes = await axios.post(`${apiUrl}/quotes`, quote);
     return quotes.data;
@@ -51,6 +54,7 @@ const addQuote = async quote => {
  * @param {*} quote to set
  */
 const updateQuote = async (id, quote) => {
+  loadToken();
   try {
     const quotes = await axios.put(`${apiUrl}/quotes/${id}`, quote);
     return quotes.data;
@@ -65,6 +69,7 @@ const updateQuote = async (id, quote) => {
  * @param {string} id of the quote to delete
  */
 const deleteQuote = async id => {
+  loadToken();
   try {
     const quotes = await axios.delete(`${apiUrl}/quotes/${id}`);
     return quotes.deletedCount === 1;
@@ -74,6 +79,11 @@ const deleteQuote = async id => {
   }
 };
 
+/**
+ * Login by sending a post request to the API to get the token.
+ * @param {string} name
+ * @param {string} password
+ */
 const login = async (name, password) => {
   try {
     const result = await axios.post(`${apiUrl}/users/login`, {
@@ -87,4 +97,29 @@ const login = async (name, password) => {
   }
 };
 
-export { getQuotes, getQuote, updateQuote, deleteQuote, addQuote, login };
+/**
+ * Logout by sending a post request to the API to get the token.
+ */
+const logout = async () => {
+  loadToken();
+  let token = localStorage.getItem("token");
+  try {
+    const result = await axios.post(`${apiUrl}/users/me/logout`, {
+      token
+    });
+    return result.data;
+  } catch (error) {
+    console.error(error);
+    return { error: error.message };
+  }
+};
+
+export {
+  getQuotes,
+  getQuote,
+  updateQuote,
+  deleteQuote,
+  addQuote,
+  login,
+  logout
+};

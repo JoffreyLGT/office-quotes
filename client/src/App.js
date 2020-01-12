@@ -41,7 +41,7 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <Header user={user} />
+        <Header user={user} setUser={setUser} />
         {routes.map(({ path, Component, Props }) => (
           <Route key={path} exact path={path}>
             {({ match }) => (
