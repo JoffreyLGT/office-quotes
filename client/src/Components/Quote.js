@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
@@ -139,12 +139,12 @@ export default ({
           {typeof content !== "undefined" &&
             content.split("\n").map((line, i) =>
               i > 0 ? (
-                <>
+                <Fragment key={`line-${i}`}>
                   <br />
-                  <span key={i}>{line}</span>
-                </>
+                  <span>{line}</span>
+                </Fragment>
               ) : (
-                <span key={i}>{line}</span>
+                <span key={`line-${i}`}>{line}</span>
               )
             )}
         </Typography>
