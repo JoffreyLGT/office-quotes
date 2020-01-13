@@ -28,18 +28,14 @@ router.post("/api/users/login", async (req, res) => {
         .send({ error: "Login failed! Check authentication credentials" });
     }
     const token = await user.generateAuthToken();
-    const userResponse = Object.assign(user._doc);
-    delete userResponse.tokens;
-    delete userResponse.password;
-    res.send({ ...userResponse, token });
+    res.send({ ...user.removeSensitiveInfo(), token });
   } catch (error) {
     res.status(400).send(error);
   }
 });
 
 router.get("/api/users/me", auth, async (req, res) => {
-  // View logged in user profile
-  res.send(req.user);
+  res.send(req.user.removeSensitiveInfo());
 });
 
 router.post("/api/users/me/logout", auth, async (req, res) => {

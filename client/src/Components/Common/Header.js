@@ -69,6 +69,7 @@ const Header = ({ user, setUser }) => {
     localStorage.removeItem("name");
     localStorage.removeItem("token");
     localStorage.removeItem("isAdmin");
+    setAnchorEl(null);
     setUser(undefined);
   };
 
