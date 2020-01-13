@@ -57,6 +57,14 @@ userSchema.methods.generateAuthToken = async function() {
   return token;
 };
 
+userSchema.methods.removeSensitiveInfo = function() {
+  // Remove tokens and password from user
+  const user = Object.assign(this._doc);
+  delete user.tokens;
+  delete user.password;
+  return user;
+};
+
 userSchema.statics.findByCredentials = async (email, password, name) => {
   // Search for a user by email and password.
   let user = await User.findOne({ email });

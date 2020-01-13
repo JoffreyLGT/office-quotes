@@ -13,6 +13,7 @@
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
+    "react-transition-group": "^4.3.0",
     "typeface-roboto": "0.0.75"
   },
   "scripts": {
@@ -21,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "coverage": "npm test -- --watchAll=false --coverage",
-    "publish": "surge ./build --domain my-office-quotes.surge.sh"
+    "publish": "npm run build && surge ./build --domain my-office-quotes.surge.sh"
   },
   "eslintConfig": {
     "extends": "react-app"

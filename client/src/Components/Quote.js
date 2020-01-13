@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
@@ -136,7 +136,17 @@ export default ({
           component="p"
           className={classes.quoteContent}
         >
-          {content}
+          {typeof content !== "undefined" &&
+            content.split("\n").map((line, i) =>
+              i > 0 ? (
+                <Fragment key={`line-${i}`}>
+                  <br />
+                  <span>{line}</span>
+                </Fragment>
+              ) : (
+                <span key={`line-${i}`}>{line}</span>
+              )
+            )}
         </Typography>
         <div className={classes.alignRight}>
           <FormatQuoteIcon fontSize="large" />
