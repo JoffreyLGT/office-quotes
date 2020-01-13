@@ -22,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "coverage": "npm test -- --watchAll=false --coverage",
-    "publish": "surge ./build --domain my-office-quotes.surge.sh"
+    "publish": "npm run build && surge ./build --domain my-office-quotes.surge.sh"
   },
   "eslintConfig": {
     "extends": "react-app"
