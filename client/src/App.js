@@ -5,28 +5,33 @@ import { QuotesView, SignInView } from "./Views";
 import { Header, Footer } from "./Components/Common";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
+import { getProfile } from "./Helpers/data";
 
 const App = () => {
-  const getUserFromLocalStorage = () => {
-    const user = {
-      _id: localStorage.getItem("_id"),
-      name: localStorage.getItem("name"),
-      token: localStorage.getItem("token"),
-      isAdmin: localStorage.getItem("isAdmin") === "true"
-    };
-    return user._id === null ? undefined : user;
-  };
-
-  const [user, setUser] = useState(getUserFromLocalStorage);
+  const [firstRender, setFirstRender] = useState(true);
+  const [user, setUser] = useState();
 
   useEffect(() => {
     if (user) {
-      localStorage.setItem("_id", user._id);
-      localStorage.setItem("name", user.name);
       localStorage.setItem("token", user.token);
-      localStorage.setItem("isAdmin", user.isAdmin);
     }
-  }, [user]);
+    if (firstRender) {
+      const fetchUserInfo = async () => {
+        const token = localStorage.getItem("token");
+        if (token !== null) {
+          const userProfile = await getProfile();
+          if (userProfile.status === 401) {
+            localStorage.removeItem("token");
+            setUser(undefined);
+          } else {
+            setUser({ ...userProfile, token });
+          }
+        }
+      };
+      setFirstRender(false);
+      fetchUserInfo();
+    }
+  }, [user, firstRender]);
 
   const routes = [
     { path: "/", Component: Redirect, Props: { to: "/quotes" } },

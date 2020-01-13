@@ -114,6 +114,20 @@ const logout = async () => {
   }
 };
 
+/**
+ * Get the user profile by sending a get request to the API.
+ */
+const getProfile = async () => {
+  loadToken();
+  try {
+    const result = await axios.get(`${apiUrl}/users/me`);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+    return { error: error, status: error.response.status };
+  }
+};
+
 export {
   getQuotes,
   getQuote,
@@ -121,5 +135,6 @@ export {
   deleteQuote,
   addQuote,
   login,
-  logout
+  logout,
+  getProfile
 };
