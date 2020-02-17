@@ -6,6 +6,11 @@ import { quoteSamples } from "../../Helpers/dataSample";
 const quote = quoteSamples[0];
 
 describe("Renders correctly", () => {
+  const user = {
+    _id: 1,
+    isAdmin: true
+  };
+
   it("Display the view", () => {
     const { getByText } = render(<Quote {...quote} />);
     expect(getByText(quote.author)).toBeInTheDocument();
@@ -15,7 +20,7 @@ describe("Renders correctly", () => {
   it("Trigger the handleFavoriteQuote event", () => {
     const handleFavoriteQuote = jest.fn();
     const { getByLabelText } = render(
-      <Quote {...quote} handleFavoriteQuote={handleFavoriteQuote} />
+      <Quote {...quote} user={user} handleFavoriteQuote={handleFavoriteQuote} />
     );
 
     fireEvent.click(getByLabelText(/favorites/));
@@ -31,7 +36,7 @@ describe("Renders correctly", () => {
     const handleEditQuote = jest.fn();
 
     const { getByText, getByLabelText } = render(
-      <Quote {...quote} handleEditQuote={handleEditQuote} />
+      <Quote {...quote} user={user} handleEditQuote={handleEditQuote} />
     );
     clickOnAction(getByLabelText);
 
@@ -42,7 +47,7 @@ describe("Renders correctly", () => {
   it("Trigger the handleDeleteQuote events", () => {
     const handleDeleteQuote = jest.fn();
     const { getByLabelText, getByText } = render(
-      <Quote {...quote} handleDeleteQuote={handleDeleteQuote} />
+      <Quote {...quote} user={user} handleDeleteQuote={handleDeleteQuote} />
     );
     clickOnAction(getByLabelText);
 
